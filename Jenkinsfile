@@ -5,6 +5,7 @@ pipeline {
     environment {
         DOCKER_USERNAME     = credentials('jenkins-docker-username')
         DOCKER_PASSWORD     = credentials('jenkins-docker-password')
+        KUBECONFIG_FILE     = credentials('my-kubeconfig')
 	}
     stages {
         stage('Building Image') { 
@@ -46,6 +47,16 @@ pipeline {
                 sh '''
                     docker stop webserver-$BUILD_NUMBER
                     docker rmi jhadeepak/jenkins:$BUILD_NUMBER --force
+                    
+                '''
+            }
+        }
+        stage('Deploying on Cluster') { 
+            steps {
+                sh 'echo "Deploy Image on K8s cluster"'
+                sh '''
+                    
+                    kubectl --kubeconfig $KUBECONFIG_FILE apply -f httpd-deploy.yaml
                     
                 '''
             }
