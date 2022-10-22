@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   creationTimestamp: null
-  name: my-ns
+  name: my-ns2
 spec: {}
 status: {}
 
@@ -12,7 +12,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: centos-apache
-  namespace: my-ns
+  namespace: my-ns2
   labels:
     app: apache
 spec:
@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: httpd
-        image: docker.io/centos/httpd
+        image: jhadeepak/jenkins:$BUILD_NUMBER
         ports:
         - containerPort: 80
 ---
@@ -38,7 +38,7 @@ metadata:
   labels:
     app: apache
   name: centos-apache
-  namespace: my-ns
+  namespace: my-ns2
 spec:
   ports:
   - port: 80
