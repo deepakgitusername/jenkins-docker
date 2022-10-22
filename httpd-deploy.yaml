@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: httpd
-        image: "jhadeepak/jenkins:${env.BUILD_NUMBER}"
+        image: "jhadeepak/jenkins:${BUILD_NUMBER}"
         ports:
         - containerPort: 80
 ---
